@@ -25,24 +25,24 @@ namespace ElasticsearchMultiJoinMapping.App
                             .Index<BaseDocument>()
                             .Map<BaseDocument>(m => m
                                 .RoutingField(r => r.Required())
-                                .AutoMap<ProductMappingType>()
-                                .Properties<ProductMappingType>(props => props
+                                .AutoMap<Product>()
+                                .Properties<Product>(props => props
                                 //You can describe your properties below for Manual mapping
                                 .Text(s => s
                                    .Name(n => n.Name)
                                    .Analyzer("default")
                                    .Fields(pprops => pprops))
                               )
-                                                    .AutoMap<CategoryMappingType>()
-                                                    .AutoMap<SupplierMappingType>()
-                                                    .AutoMap<StockMappingType>()
+                                                    .AutoMap<Category>()
+                                                    .AutoMap<Supplier>()
+                                                    .AutoMap<Stock>()
                                                     //You can add more join types here
                                                     .Properties(props => props
                                                                 .Join(j => j
                                                                     .Name(p => p.JoinField)
                                                                         //This is so important here. You can describe a relation that product is parent and the others is join type.
                                                                         .Relations(r => r
-                                                                        .Join<ProductMappingType>("category", "supplier", "stock")
+                                                                        .Join<Product>("category", "supplier", "stock")
                                                                                 )
                                                                 )
                                                             )
@@ -129,10 +129,10 @@ namespace ElasticsearchMultiJoinMapping.App
             return new ConnectionSettings(node).EnableHttpCompression()
             .DisableDirectStreaming()
             .DefaultMappingFor<BaseDocument>(m => m.IndexName(_IndexName))
-            .DefaultMappingFor<CategoryMappingType>(m => m.IndexName(_IndexName))
-            .DefaultMappingFor<SupplierMappingType>(m => m.IndexName(_IndexName))
-            .DefaultMappingFor<StockMappingType>(m => m.IndexName(_IndexName))
-            .DefaultMappingFor<ProductMappingType>(m => m.IndexName(_IndexName));
+            .DefaultMappingFor<Category>(m => m.IndexName(_IndexName))
+            .DefaultMappingFor<Supplier>(m => m.IndexName(_IndexName))
+            .DefaultMappingFor<Stock>(m => m.IndexName(_IndexName))
+            .DefaultMappingFor<Product>(m => m.IndexName(_IndexName));
         }
 
         static void Main(string[] args)
@@ -143,7 +143,7 @@ namespace ElasticsearchMultiJoinMapping.App
             #region Documents
             List<BaseDocument> products = new List<BaseDocument>()
             {
-                new ProductMappingType()
+                new Product()
                 {
                     Id = 1,
                     Name = "IPhone 7",
@@ -151,7 +151,7 @@ namespace ElasticsearchMultiJoinMapping.App
                     JoinField = "product",
                 },
 
-                new ProductMappingType()
+                new Product()
                 {
                     Id = 2,
                     Name = "IPhone 8",
@@ -161,7 +161,7 @@ namespace ElasticsearchMultiJoinMapping.App
             };
             var suppliers = new List<BaseDocument>()
             {
-                new SupplierMappingType()
+                new Supplier()
                 {
                     Id = 3,
                     SupplierDescription="Apple",
@@ -170,7 +170,7 @@ namespace ElasticsearchMultiJoinMapping.App
 
                 },
 
-                new SupplierMappingType()
+                new Supplier()
                 {
                     Id = 4,
                     SupplierDescription="A supplier",
@@ -178,7 +178,7 @@ namespace ElasticsearchMultiJoinMapping.App
                     JoinField = JoinField.Link("supplier", 1)
                 },
 
-                new SupplierMappingType()
+                new Supplier()
                 {
                     Id = 5,
                     SupplierDescription="Another supplier",
@@ -188,21 +188,21 @@ namespace ElasticsearchMultiJoinMapping.App
             };
             var stocks = new List<BaseDocument>()
             {
-                new StockMappingType()
+                new Stock()
                 {
                     Id = 6,
                     Country="USA",
                     JoinField = JoinField.Link("stock", 1)
                 },
 
-                new StockMappingType()
+                new Stock()
                 {
                     Id = 7,
                     Country="UK",
                     JoinField = JoinField.Link("stock", 2)
                 },
 
-                new StockMappingType()
+                new Stock()
                 {
                     Id = 8,
                     Country="Germany",
@@ -211,21 +211,21 @@ namespace ElasticsearchMultiJoinMapping.App
             };
             var categoriees = new List<BaseDocument>()
             {
-                new CategoryMappingType()
+                new Category()
                 {
                     Id = 9,
                     CategoryDescription= "Electronic",
                     JoinField = JoinField.Link("category", 1)
                 },
 
-                new CategoryMappingType()
+                new Category()
                 {
                     Id = 10,
                     CategoryDescription = "Smart Phone",
                     JoinField = JoinField.Link("category", 2)
                 },
 
-                new CategoryMappingType()
+                new Category()
                 {
                     Id = 11,
                     CategoryDescription = "Phone",

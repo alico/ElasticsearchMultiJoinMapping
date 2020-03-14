@@ -6,7 +6,7 @@ using System.Text;
 namespace ElasticsearchMultiJoinMapping.App
 {
     [ElasticsearchType(RelationName = "stock")]
-    public class StockMappingType : BaseDocument
+    public class Stock : BaseDocument
     {
         [Keyword]
         public string Country { get; set; }

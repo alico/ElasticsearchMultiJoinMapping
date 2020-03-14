@@ -5,11 +5,11 @@ using System.Text;
 
 namespace ElasticsearchMultiJoinMapping.App
 {
-    [ElasticsearchType(RelationName = "supplier")]
-    public class SupplierMappingType : BaseDocument
+    [ElasticsearchType(RelationName = "category")]
+    public class Category : BaseDocument
     {
         [Keyword]
-        public string SupplierDescription { get; set; }
+        public string CategoryDescription { get; set; }
       
     }
 }
