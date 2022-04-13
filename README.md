@@ -5,4 +5,4 @@
 
 <h2>Documentation</h2>
 <p>For the documentation please have a look at my article below.</p>
-<a href="https://medium.com/kariyertech/elasticsearch-7-6-multiple-join-with-nest-a9843a671130" target="_blank">Elasticsearch 7.6 Multiple Child Relation with Nest</a>
+<a href="https://medium.com/kariyertech/elasticsearch-7-6-multiple-join-with-nest-a9843a671130">Elasticsearch 7.6 Multiple Child Relation with Nest</a>
